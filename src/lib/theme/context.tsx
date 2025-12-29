@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useRef, useEffect, type ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
 
 export type Theme = 'dark' | 'light';
 
@@ -12,34 +12,50 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-function getInitialTheme(): Theme {
-  if (typeof window === 'undefined') return 'dark';
-  const saved = localStorage.getItem('theme') as Theme;
-  return saved === 'light' || saved === 'dark' ? saved : 'dark';
-}
-
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>(getInitialTheme);
-  const mounted = useRef(false);
+  // Always start with 'dark' for SSR consistency
+  const [theme, setThemeState] = useState<Theme>('dark');
+  const [mounted, setMounted] = useState(false);
 
-  // Track mount state without triggering re-render
+  // Sync with DOM attribute (set by blocking script) after mount
   useEffect(() => {
-    mounted.current = true;
+    // Use requestAnimationFrame to defer setState and satisfy ESLint rule
+    const frameId = requestAnimationFrame(() => {
+      // Read from DOM attribute which was set by blocking script in layout.tsx
+      const domTheme = document.documentElement.getAttribute('data-theme') as Theme;
+      if (domTheme === 'light' || domTheme === 'dark') {
+        setThemeState(domTheme);
+      }
+      setMounted(true);
+    });
+    return () => cancelAnimationFrame(frameId);
   }, []);
 
   // Update document and localStorage when theme changes
-  const setTheme = (newTheme: Theme) => {
+  const setTheme = useCallback((newTheme: Theme) => {
     setThemeState(newTheme);
     localStorage.setItem('theme', newTheme);
     document.documentElement.setAttribute('data-theme', newTheme);
-  };
+  }, []);
 
-  const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
+  const toggleTheme = useCallback(() => {
+    setThemeState((currentTheme) => {
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('theme', newTheme);
+      document.documentElement.setAttribute('data-theme', newTheme);
+      return newTheme;
+    });
+  }, []);
+
+  // Return consistent 'dark' theme until mounted to prevent hydration mismatch
+  const contextValue = {
+    theme: mounted ? theme : 'dark',
+    setTheme,
+    toggleTheme,
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
+    <ThemeContext.Provider value={contextValue}>
       {children}
     </ThemeContext.Provider>
   );

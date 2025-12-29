@@ -202,10 +202,10 @@ export function ChatDemo() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left - Content */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.5 }}
           >
             <div className="flex items-center gap-2 mb-4">
               <Sparkles size={18} className="text-primary" />
@@ -241,10 +241,10 @@ export function ChatDemo() {
 
           {/* Right - Chat Interface */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.5 }}
             className="relative"
           >
             <div className="bg-dark-card border border-dark-border rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">

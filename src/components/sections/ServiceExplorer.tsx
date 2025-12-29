@@ -209,10 +209,10 @@ export function ServiceExplorer() {
       <Container>
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
           <span className="text-sm text-primary uppercase tracking-wider font-medium">
@@ -231,9 +231,9 @@ export function ServiceExplorer() {
         <div className="grid lg:grid-cols-12 gap-8">
           {/* Tabs - Left Column */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.5 }}
             className="lg:col-span-4 space-y-3"
           >

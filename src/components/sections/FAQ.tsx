@@ -12,19 +12,14 @@ interface FAQItemProps {
   answer: string;
   isOpen: boolean;
   onToggle: () => void;
-  index: number;
 }
 
 /**
  * Individual FAQ accordion item
  */
-function FAQItem({ question, answer, isOpen, onToggle, index }: FAQItemProps) {
+function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
+    <div
       className={cn(
         'border-b border-dark-border/50 last:border-b-0',
         'transition-all duration-300'
@@ -70,7 +65,7 @@ function FAQItem({ question, answer, isOpen, onToggle, index }: FAQItemProps) {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </div>
   );
 }
 
@@ -106,10 +101,10 @@ export function FAQ() {
         <div className="max-w-3xl mx-auto">
           {/* Section Header */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.5 }}
             className="text-center mb-16"
           >
             <span className="text-sm text-primary uppercase tracking-wider font-medium">
@@ -124,7 +119,13 @@ export function FAQ() {
           </motion.div>
 
           {/* FAQ Items */}
-          <div className="bg-dark-card/30 backdrop-blur-sm border border-dark-border/50 rounded-2xl px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.5 }}
+            className="bg-dark-card/30 backdrop-blur-sm border border-dark-border/50 rounded-2xl px-8"
+          >
             {faqItems.map((item, index) => (
               <FAQItem
                 key={index}
@@ -132,10 +133,9 @@ export function FAQ() {
                 answer={item.answer}
                 isOpen={openIndex === index}
                 onToggle={() => handleToggle(index)}
-                index={index}
               />
             ))}
-          </div>
+          </motion.div>
 
           {/* CTA */}
           <motion.div

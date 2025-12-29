@@ -70,10 +70,10 @@ export function Contact() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Left - Content */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.5 }}
           >
             <span className="text-sm text-primary uppercase tracking-wider font-medium">
               {t.contact.sectionLabel}
@@ -119,10 +119,10 @@ export function Contact() {
 
           {/* Right - Booking Card */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.5 }}
           >
             <Card gradient className="p-8 lg:p-10">
               <div className="text-center mb-8">
@@ -141,13 +141,9 @@ export function Contact() {
 
               {/* Booking benefits */}
               <div className="space-y-4 mb-8">
-                {benefits.map((benefit, index) => (
-                  <motion.div
+                {benefits.map((benefit) => (
+                  <div
                     key={benefit}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
                     className="flex items-center gap-3"
                   >
                     <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
@@ -156,7 +152,7 @@ export function Contact() {
                     <span className="text-[var(--color-text-secondary)] text-sm">
                       {benefit}
                     </span>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
 

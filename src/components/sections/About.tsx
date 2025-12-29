@@ -14,30 +14,24 @@ function FeaturePill({
   icon: Icon,
   title,
   description,
-  index,
   isActive,
   onClick,
 }: {
   icon: React.ComponentType<{ size?: number; className?: string }>;
   title: string;
   description: string;
-  index: number;
   isActive: boolean;
   onClick: () => void;
 }) {
   return (
-    <motion.button
+    <button
       onClick={onClick}
-      initial={{ opacity: 0, x: -30 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
       className={cn(
         'group w-full text-left p-6 rounded-2xl transition-all duration-500',
         'border border-transparent hover:border-primary/20',
         isActive
           ? 'bg-gradient-to-r from-primary/10 to-secondary/10 border-primary/30'
-          : 'hover:bg-dark-card/50'
+          : 'hover:bg-primary/5'
       )}
     >
       <div className="flex items-start gap-4">
@@ -46,7 +40,7 @@ function FeaturePill({
             'w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300',
             isActive
               ? 'bg-gradient-to-br from-primary to-secondary text-white'
-              : 'bg-dark-card text-[var(--color-text-muted)] group-hover:text-primary'
+              : 'bg-[var(--color-dark-lighter)] text-[var(--color-text-muted)] group-hover:text-primary'
           )}
         >
           <Icon size={24} />
@@ -84,7 +78,7 @@ function FeaturePill({
           )}
         />
       </div>
-    </motion.button>
+    </button>
   );
 }
 
@@ -133,10 +127,10 @@ function ExpertiseMockup({ activeFeature, t }: { activeFeature: number; t: Recor
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40, scale: 0.95 }}
+      initial={{ opacity: 0, y: 30, scale: 0.98 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+      viewport={{ once: true, margin: '-100px' }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
       className="relative mx-auto w-full max-w-md"
     >
       {/* Main card */}
@@ -341,10 +335,10 @@ export function About() {
           {/* Right - Content */}
           <div className="order-1 lg:order-2">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.5 }}
             >
               <span className="text-sm text-primary uppercase tracking-wider font-medium">
                 {t.about.sectionLabel}
@@ -359,28 +353,33 @@ export function About() {
             </motion.div>
 
             {/* Interactive feature pills */}
-            <div className="space-y-2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.5 }}
+              className="space-y-2"
+            >
               {features.map((feature, index) => (
                 <FeaturePill
                   key={feature.title}
                   icon={feature.icon}
                   title={feature.title}
                   description={feature.description}
-                  index={index}
                   isActive={activeFeature === index}
                   onClick={() => setActiveFeature(index)}
                 />
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
 
         {/* Mission Statement - Redesigned */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.5 }}
           className="mt-24 relative"
         >
           {/* Background decoration */}
