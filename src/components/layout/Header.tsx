@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Globe, Sun, Moon } from 'lucide-react';
@@ -12,7 +12,7 @@ import type { Locale } from '@/lib/i18n';
 
 /**
  * Header component with:
- * - Hide on scroll down, show on scroll up
+ * - Always visible navbar
  * - Language toggle (EN/ES)
  * - Responsive mobile menu
  */
@@ -20,13 +20,8 @@ export function Header() {
   const { locale, setLocale, t } = useTranslation();
   const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
-
-  const lastScrollY = useRef(0);
-  const ticking = useRef(false);
-
 
   // Navigation links with translations
   const navLinks = [
@@ -37,31 +32,10 @@ export function Header() {
     { label: t.nav.contact, href: '/#contact' },
   ];
 
-  // Handle scroll - hide on scroll down, show on scroll up
+  // Handle scroll - only track if scrolled for background blur
   useEffect(() => {
     const handleScroll = () => {
-      if (!ticking.current) {
-        window.requestAnimationFrame(() => {
-          const currentScrollY = window.scrollY;
-
-          // Show/hide based on scroll direction
-          if (currentScrollY < 100) {
-            setIsVisible(true);
-          } else if (currentScrollY > lastScrollY.current) {
-            // Scrolling down
-            setIsVisible(false);
-            setIsLangMenuOpen(false);
-          } else {
-            // Scrolling up
-            setIsVisible(true);
-          }
-
-          setIsScrolled(currentScrollY > 50);
-          lastScrollY.current = currentScrollY;
-          ticking.current = false;
-        });
-        ticking.current = true;
-      }
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -80,10 +54,7 @@ export function Header() {
   };
 
   return (
-    <motion.header
-      initial={{ y: 0 }}
-      animate={{ y: isVisible ? 0 : -100 }}
-      transition={{ duration: 0.3, ease: 'easeInOut' }}
+    <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
         isScrolled
@@ -238,6 +209,6 @@ export function Header() {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 }

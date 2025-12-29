@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bot, User, Sparkles, RotateCcw } from 'lucide-react';
 import { Container, Button, GradientText } from '@/components/ui';
-import { CHAT_SCENARIOS } from '@/lib/constants';
 import { useTranslation } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 import type { ChatMessage, ChatScenario } from '@/types';
@@ -112,7 +111,51 @@ function ScenarioTab({
  */
 export function ChatDemo() {
   const { t } = useTranslation();
-  const [activeScenario, setActiveScenario] = useState<ChatScenario>(CHAT_SCENARIOS[0]);
+
+  // Build scenarios from translations
+  const scenarios: ChatScenario[] = useMemo(() => {
+    const scenarioData = t.chatDemo.scenarios;
+    const delays = [0, 1500, 3500, 5500, 7000, 8500];
+
+    return [
+      {
+        id: 'customer-service',
+        title: scenarioData.customerService.title,
+        description: scenarioData.customerService.description,
+        messages: scenarioData.customerService.messages.map((msg: { role: string; content: string }, i: number) => ({
+          id: String(i + 1),
+          role: msg.role as 'user' | 'assistant',
+          content: msg.content,
+          delay: delays[i] || i * 1500,
+        })),
+      },
+      {
+        id: 'lead-qualification',
+        title: scenarioData.leadQualification.title,
+        description: scenarioData.leadQualification.description,
+        messages: scenarioData.leadQualification.messages.map((msg: { role: string; content: string }, i: number) => ({
+          id: String(i + 1),
+          role: msg.role as 'user' | 'assistant',
+          content: msg.content,
+          delay: delays[i] || i * 1500,
+        })),
+      },
+      {
+        id: 'appointment',
+        title: scenarioData.appointment.title,
+        description: scenarioData.appointment.description,
+        messages: scenarioData.appointment.messages.map((msg: { role: string; content: string }, i: number) => ({
+          id: String(i + 1),
+          role: msg.role as 'user' | 'assistant',
+          content: msg.content,
+          delay: delays[i] || i * 1500,
+        })),
+      },
+    ];
+  }, [t.chatDemo.scenarios]);
+
+  const [activeScenarioIndex, setActiveScenarioIndex] = useState(0);
+  const activeScenario = scenarios[activeScenarioIndex];
   const [visibleMessages, setVisibleMessages] = useState<ChatMessage[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -180,11 +223,11 @@ export function ChatDemo() {
   }, [playScenario]);
 
   // Handle scenario change
-  const handleScenarioChange = (scenario: ChatScenario) => {
-    if (scenario.id !== activeScenario.id) {
+  const handleScenarioChange = (index: number) => {
+    if (index !== activeScenarioIndex) {
       timeoutRef.current.forEach(clearTimeout);
       timeoutRef.current = [];
-      setActiveScenario(scenario);
+      setActiveScenarioIndex(index);
     }
   };
 
@@ -224,12 +267,12 @@ export function ChatDemo() {
 
             {/* Scenario Tabs */}
             <div className="flex flex-wrap gap-2 mb-6">
-              {CHAT_SCENARIOS.map((scenario) => (
+              {scenarios.map((scenario, index) => (
                 <ScenarioTab
                   key={scenario.id}
                   scenario={scenario}
-                  isActive={activeScenario.id === scenario.id}
-                  onClick={() => handleScenarioChange(scenario)}
+                  isActive={activeScenarioIndex === index}
+                  onClick={() => handleScenarioChange(index)}
                 />
               ))}
             </div>

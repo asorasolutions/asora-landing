@@ -194,14 +194,35 @@ export const translations = {
         customerService: {
           title: 'Customer Service',
           description: 'See how our AI handles customer inquiries',
+          messages: [
+            { role: 'user', content: "Hi, I'm interested in your workflow automation services. Can you tell me more?" },
+            { role: 'assistant', content: "Hello! I'd be happy to help you learn about our Workflow Automation Engine. It's designed to streamline repetitive business operations, saving you time and reducing errors. What specific processes are you looking to automate?" },
+            { role: 'user', content: "We have a lot of manual data entry and approval workflows that slow us down." },
+            { role: 'assistant', content: "Those are perfect candidates for automation! Our engine can automatically capture data from forms, route approvals to the right people, and even learn from patterns to suggest optimizations. Clients typically see a 60-70% reduction in processing time. Would you like to schedule a demo to see it in action?" },
+          ],
         },
         leadQualification: {
           title: 'Lead Qualification',
           description: 'Watch AI qualify and nurture leads',
+          messages: [
+            { role: 'assistant', content: "Hi! I noticed you've been exploring our AI solutions. I'm here to help you find the right fit for your business. What's your primary goal right now?" },
+            { role: 'user', content: "We want to improve our customer response times and scale our support team." },
+            { role: 'assistant', content: "Great goal! Based on that, our AI Virtual Assistant would be ideal. It handles 80% of common inquiries instantly, 24/7. Quick question: how many support tickets do you handle monthly, and what's your current average response time?" },
+            { role: 'user', content: "About 2,000 tickets per month, and we average 4-6 hours response time." },
+            { role: 'assistant', content: "With that volume, you could reduce response time to under 5 minutes for most queries. I've prepared a custom ROI analysis for you. Would you like me to connect you with a solutions specialist to review it together?" },
+          ],
         },
         appointment: {
           title: 'Appointment Booking',
           description: 'Seamless scheduling automation',
+          messages: [
+            { role: 'user', content: "I'd like to book a consultation to discuss cloud migration." },
+            { role: 'assistant', content: "I'd be happy to help you schedule that! Our cloud solutions team has availability this week. What works better for you - a 30-minute intro call or a 60-minute deep-dive session?" },
+            { role: 'user', content: "Let's do the 60-minute session. I want to cover everything." },
+            { role: 'assistant', content: "Here are available slots for a 60-minute deep-dive:\n\n• Tuesday, 2:00 PM EST\n• Wednesday, 10:00 AM EST\n• Thursday, 3:30 PM EST\n\nWhich works best for you?" },
+            { role: 'user', content: "Wednesday at 10 AM works perfectly." },
+            { role: 'assistant', content: "You're all set for Wednesday at 10:00 AM EST. I've sent a calendar invite to your email with a video call link. Before the meeting, is there anything specific about your current infrastructure you'd like our team to prepare for?" },
+          ],
         },
       },
       online: 'Online',
@@ -580,14 +601,35 @@ export const translations = {
         customerService: {
           title: 'Servicio al Cliente',
           description: 'Ve cómo nuestra IA maneja consultas de clientes',
+          messages: [
+            { role: 'user', content: "Hola, me interesan sus servicios de automatización de flujos de trabajo. ¿Puede contarme más?" },
+            { role: 'assistant', content: "¡Hola! Estaré encantado de ayudarte a conocer nuestro Motor de Automatización de Flujos de Trabajo. Está diseñado para optimizar operaciones comerciales repetitivas, ahorrándote tiempo y reduciendo errores. ¿Qué procesos específicos estás buscando automatizar?" },
+            { role: 'user', content: "Tenemos mucha entrada manual de datos y flujos de aprobación que nos ralentizan." },
+            { role: 'assistant', content: "¡Esos son candidatos perfectos para la automatización! Nuestro motor puede capturar datos automáticamente de formularios, enrutar aprobaciones a las personas adecuadas e incluso aprender de patrones para sugerir optimizaciones. Los clientes típicamente ven una reducción del 60-70% en el tiempo de procesamiento. ¿Te gustaría programar una demo para verlo en acción?" },
+          ],
         },
         leadQualification: {
           title: 'Calificación de Leads',
           description: 'Observa cómo la IA califica y nutre leads',
+          messages: [
+            { role: 'assistant', content: "¡Hola! Noté que has estado explorando nuestras soluciones de IA. Estoy aquí para ayudarte a encontrar la opción adecuada para tu negocio. ¿Cuál es tu objetivo principal en este momento?" },
+            { role: 'user', content: "Queremos mejorar nuestros tiempos de respuesta al cliente y escalar nuestro equipo de soporte." },
+            { role: 'assistant', content: "¡Gran objetivo! Basándonos en eso, nuestro Asistente Virtual de IA sería ideal. Maneja el 80% de las consultas comunes al instante, 24/7. Pregunta rápida: ¿cuántos tickets de soporte manejan mensualmente y cuál es su tiempo de respuesta promedio actual?" },
+            { role: 'user', content: "Aproximadamente 2,000 tickets al mes, y promediamos 4-6 horas de tiempo de respuesta." },
+            { role: 'assistant', content: "Con ese volumen, podrías reducir el tiempo de respuesta a menos de 5 minutos para la mayoría de las consultas. He preparado un análisis de ROI personalizado para ti. ¿Te gustaría que te conecte con un especialista en soluciones para revisarlo juntos?" },
+          ],
         },
         appointment: {
           title: 'Reserva de Citas',
           description: 'Automatización de programación sin fricciones',
+          messages: [
+            { role: 'user', content: "Me gustaría reservar una consulta para discutir la migración a la nube." },
+            { role: 'assistant', content: "¡Estaré encantado de ayudarte a programar eso! Nuestro equipo de soluciones en la nube tiene disponibilidad esta semana. ¿Qué funciona mejor para ti: una llamada introductoria de 30 minutos o una sesión profunda de 60 minutos?" },
+            { role: 'user', content: "Hagamos la sesión de 60 minutos. Quiero cubrir todo." },
+            { role: 'assistant', content: "Aquí están los horarios disponibles para una sesión profunda de 60 minutos:\n\n• Martes, 2:00 PM EST\n• Miércoles, 10:00 AM EST\n• Jueves, 3:30 PM EST\n\n¿Cuál te funciona mejor?" },
+            { role: 'user', content: "El miércoles a las 10 AM me queda perfecto." },
+            { role: 'assistant', content: "¡Listo! Tienes tu cita para el miércoles a las 10:00 AM EST. Te he enviado una invitación de calendario a tu correo con un enlace de videollamada. Antes de la reunión, ¿hay algo específico sobre tu infraestructura actual que te gustaría que nuestro equipo prepare?" },
+          ],
         },
       },
       online: 'En línea',
