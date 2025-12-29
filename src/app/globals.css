@@ -1,8 +1,36 @@
 @import "tailwindcss";
 
+/* =============================================================================
+   DESIGN TOKENS - Asora Solutions Brand
+   Colors: Black (#000000), Blue (#4361EE), Purple (#7209B7)
+============================================================================= */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand Colors */
+  --color-primary: #4361EE;
+  --color-secondary: #7209B7;
+  --color-dark: #000000;
+  --color-dark-lighter: #0a0a0a;
+  --color-dark-card: #111111;
+  --color-dark-border: #222222;
+
+  /* Text Colors */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #71717a;
+
+  /* Gradients */
+  --gradient-brand: linear-gradient(135deg, #4361EE 0%, #7209B7 100%);
+  --gradient-brand-reverse: linear-gradient(135deg, #7209B7 0%, #4361EE 100%);
+  --gradient-glow: radial-gradient(ellipse at center, rgba(67, 97, 238, 0.15) 0%, transparent 70%);
+
+  /* Spacing */
+  --section-padding: clamp(4rem, 10vw, 8rem);
+  --container-max: 1280px;
+
+  /* Theme vars */
+  --background: #000000;
+  --foreground: #ffffff;
 }
 
 @theme inline {
@@ -10,17 +38,159 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Custom colors for Tailwind */
+  --color-primary: #4361EE;
+  --color-secondary: #7209B7;
+  --color-dark: #000000;
+  --color-dark-lighter: #0a0a0a;
+  --color-dark-card: #111111;
+  --color-dark-border: #222222;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* =============================================================================
+   BASE STYLES
+============================================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* =============================================================================
+   UTILITY CLASSES
+============================================================================= */
+
+/* Gradient Text */
+.text-gradient {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Gradient Border */
+.gradient-border {
+  position: relative;
+  background: var(--color-dark-card);
+  border-radius: 1rem;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: var(--gradient-brand);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Glow Effects */
+.glow-primary {
+  box-shadow: 0 0 40px rgba(67, 97, 238, 0.3);
+}
+
+.glow-secondary {
+  box-shadow: 0 0 40px rgba(114, 9, 183, 0.3);
+}
+
+/* Section Container */
+.section-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* =============================================================================
+   ANIMATIONS
+============================================================================= */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+/* Staggered animation delays */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* =============================================================================
+   SCROLLBAR STYLING
+============================================================================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-dark-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* =============================================================================
+   SELECTION STYLING
+============================================================================= */
+
+::selection {
+  background: rgba(67, 97, 238, 0.3);
+  color: #ffffff;
 }
