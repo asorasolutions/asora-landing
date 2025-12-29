@@ -121,7 +121,6 @@ function ExpertiseMockup({ activeFeature, t }: { activeFeature: number; t: Recor
   const techStack = [
     { name: expertise.aiMl, color: 'from-primary to-blue-500' },
     { name: expertise.cloud, color: 'from-secondary to-purple-500' },
-    { name: expertise.saas, color: 'from-green-500 to-emerald-500' },
     { name: expertise.analytics, color: 'from-orange-500 to-amber-500' },
   ];
 

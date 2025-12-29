@@ -30,7 +30,6 @@ export const metadata: Metadata = {
     'business automation',
     'digital transformation',
     'software development',
-    'SaaS',
     'AI virtual assistants',
     'workflow automation',
     'cloud solutions',
@@ -102,6 +101,24 @@ export default function RootLayout({
                   var theme = localStorage.getItem('theme');
                   if (theme === 'light' || theme === 'dark') {
                     document.documentElement.setAttribute('data-theme', theme);
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+        {/* Prevent locale flash - apply locale before render */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var locale = localStorage.getItem('locale');
+                  if (locale === 'en' || locale === 'es') {
+                    document.documentElement.lang = locale;
+                  } else {
+                    var browserLang = navigator.language.toLowerCase();
+                    document.documentElement.lang = browserLang.startsWith('es') ? 'es' : 'en';
                   }
                 } catch (e) {}
               })();

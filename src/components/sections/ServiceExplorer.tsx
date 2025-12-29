@@ -133,24 +133,10 @@ function ServiceCard({
  */
 export function ServiceExplorer() {
   const { t } = useTranslation();
-  const [activeCategory, setActiveCategory] = useState<string>('saas');
+  const [activeCategory, setActiveCategory] = useState<string>('consulting');
 
   // Build services data from translations
   const services: ServiceCategoryDisplay[] = [
-    {
-      id: 'saas',
-      title: t.services.saas.title,
-      subtitle: t.services.saas.subtitle,
-      description: t.services.saas.description,
-      icon: 'Cpu',
-      services: [
-        { ...t.services.items.aiAssistants, icon: 'Bot' },
-        { ...t.services.items.leadIntelligence, icon: 'Target' },
-        { ...t.services.items.workflowAutomation, icon: 'Workflow' },
-        { ...t.services.items.analytics, icon: 'BarChart3' },
-        { ...t.services.items.contentDistribution, icon: 'Share2' },
-      ],
-    },
     {
       id: 'consulting',
       title: t.services.consulting.title,

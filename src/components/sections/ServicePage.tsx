@@ -7,7 +7,7 @@ import { Container, Card, Button, GradientText } from '@/components/ui';
 import { useTranslation } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 
-type ServiceCategory = 'saas' | 'consulting' | 'marketing' | 'infrastructure';
+type ServiceCategory = 'consulting' | 'marketing' | 'infrastructure';
 
 interface ServiceItem {
   title: string;
@@ -46,17 +46,6 @@ const categoryConfig: Record<ServiceCategory, {
   gradient: string;
   services: { key: string; icon: string }[];
 }> = {
-  saas: {
-    icon: 'Cpu',
-    gradient: 'from-blue-500 to-cyan-500',
-    services: [
-      { key: 'aiAssistants', icon: 'Bot' },
-      { key: 'leadIntelligence', icon: 'Target' },
-      { key: 'workflowAutomation', icon: 'Workflow' },
-      { key: 'analytics', icon: 'BarChart3' },
-      { key: 'contentDistribution', icon: 'Share2' },
-    ],
-  },
   consulting: {
     icon: 'Lightbulb',
     gradient: 'from-amber-500 to-orange-500',

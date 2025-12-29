@@ -66,12 +66,6 @@ export const translations = {
         'From AI-powered automation to custom software development, we provide end-to-end technology solutions tailored to your needs.',
 
       // Categories
-      saas: {
-        title: 'SaaS Solutions',
-        subtitle: 'Intelligent Business Automation Suite',
-        description:
-          'Comprehensive AI-powered tools designed to automate, optimize, and scale your business operations.',
-      },
       consulting: {
         title: 'Consulting & Implementation',
         subtitle: 'Digital Transformation Experts',
@@ -256,7 +250,6 @@ export const translations = {
         expertiseLabel: 'Expertise',
         aiMl: 'AI/ML',
         cloud: 'Cloud',
-        saas: 'SaaS',
         analytics: 'Analytics',
         activeDev: 'Active Development',
         projectsInProgress: 'projects in progress',
@@ -454,12 +447,6 @@ export const translations = {
         'Desde automatización impulsada por IA hasta desarrollo de software personalizado, proporcionamos soluciones tecnológicas de extremo a extremo adaptadas a tus necesidades.',
 
       // Categories
-      saas: {
-        title: 'Soluciones SaaS',
-        subtitle: 'Suite de Automatización Empresarial Inteligente',
-        description:
-          'Herramientas integrales impulsadas por IA diseñadas para automatizar, optimizar y escalar tus operaciones comerciales.',
-      },
       consulting: {
         title: 'Consultoría e Implementación',
         subtitle: 'Expertos en Transformación Digital',
@@ -649,7 +636,6 @@ export const translations = {
         expertiseLabel: 'Experiencia',
         aiMl: 'IA/ML',
         cloud: 'Nube',
-        saas: 'SaaS',
         analytics: 'Analítica',
         activeDev: 'Desarrollo Activo',
         projectsInProgress: 'proyectos en progreso',

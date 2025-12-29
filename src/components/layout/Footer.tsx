@@ -14,7 +14,6 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   const services = [
-    { href: '/services/saas', title: t.services.saas.title },
     { href: '/services/consulting', title: t.services.consulting.title },
     { href: '/services/marketing', title: t.services.marketing.title },
     { href: '/services/infrastructure', title: t.services.infrastructure.title },

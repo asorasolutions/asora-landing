@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { translations, type Locale } from './translations';
 
 // Define the translation type based on the structure
@@ -14,20 +14,38 @@ interface I18nContextType {
 
 const I18nContext = createContext<I18nContextType | null>(null);
 
-function getInitialLocale(): Locale {
-  if (typeof window === 'undefined') return 'en';
-  const saved = localStorage.getItem('locale') as Locale;
-  if (saved === 'en' || saved === 'es') return saved;
-  // Detect browser language
-  const browserLang = navigator.language.toLowerCase();
-  return browserLang.startsWith('es') ? 'es' : 'en';
-}
-
 /**
  * I18n Provider - Wraps app to provide translation context
  */
 export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(getInitialLocale);
+  // Start with 'en' for SSR consistency
+  const [locale, setLocaleState] = useState<Locale>('en');
+  const [mounted, setMounted] = useState(false);
+
+  // Sync with DOM attribute (set by blocking script) after mount
+  useEffect(() => {
+    const frameId = requestAnimationFrame(() => {
+      // Read from DOM attribute which was set by blocking script in layout.tsx
+      const domLocale = document.documentElement.lang as Locale;
+      if (domLocale === 'en' || domLocale === 'es') {
+        setLocaleState(domLocale);
+      } else {
+        // Fallback: check localStorage or browser language
+        const saved = localStorage.getItem('locale') as Locale;
+        if (saved === 'en' || saved === 'es') {
+          setLocaleState(saved);
+          document.documentElement.lang = saved;
+        } else {
+          const browserLang = navigator.language.toLowerCase();
+          const detectedLocale = browserLang.startsWith('es') ? 'es' : 'en';
+          setLocaleState(detectedLocale);
+          document.documentElement.lang = detectedLocale;
+        }
+      }
+      setMounted(true);
+    });
+    return () => cancelAnimationFrame(frameId);
+  }, []);
 
   const setLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale);
@@ -35,10 +53,12 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     document.documentElement.lang = newLocale;
   }, []);
 
-  const t = translations[locale] as TranslationType;
+  // Return 'en' translations until mounted to prevent hydration mismatch
+  const effectiveLocale = mounted ? locale : 'en';
+  const t = translations[effectiveLocale] as TranslationType;
 
   return (
-    <I18nContext.Provider value={{ locale, setLocale, t }}>
+    <I18nContext.Provider value={{ locale: effectiveLocale, setLocale, t }}>
       {children}
     </I18nContext.Provider>
   );
