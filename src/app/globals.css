@@ -86,6 +86,53 @@ body {
 }
 
 /* =============================================================================
+   SAFARI PERFORMANCE OPTIMIZATIONS
+============================================================================= */
+
+/* Force GPU acceleration for animated elements */
+.will-change-transform {
+  will-change: transform;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Reduce blur intensity for Safari */
+@supports (-webkit-touch-callout: none) {
+  .blur-\[80px\] {
+    filter: blur(50px);
+  }
+
+  .blur-\[60px\] {
+    filter: blur(40px);
+  }
+
+  .blur-\[100px\] {
+    filter: blur(60px);
+  }
+
+  .blur-2xl {
+    filter: blur(30px);
+  }
+
+  .backdrop-blur-xl {
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+
+  .backdrop-blur-lg {
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+
+  .backdrop-blur-md {
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+}
+
+/* =============================================================================
    UTILITY CLASSES
 ============================================================================= */
 

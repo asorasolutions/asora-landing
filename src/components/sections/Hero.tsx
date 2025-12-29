@@ -8,14 +8,19 @@ import { useTranslation } from '@/lib/i18n';
 
 /**
  * Cursor-following gradient background - Contained to hero section
+ * Uses GPU-accelerated transforms and optimized blur for Safari compatibility
  */
 function CursorGradient({ containerRef }: { containerRef: React.RefObject<HTMLElement | null> }) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const springConfig = { damping: 20, stiffness: 100 };
+  const springConfig = { damping: 25, stiffness: 120 };
   const x = useSpring(mouseX, springConfig);
   const y = useSpring(mouseY, springConfig);
+
+  // Secondary springs with different configs
+  const x2 = useSpring(mouseX, { damping: 35, stiffness: 90 });
+  const y2 = useSpring(mouseY, { damping: 35, stiffness: 90 });
 
   useEffect(() => {
     const container = containerRef.current;
@@ -32,42 +37,41 @@ function CursorGradient({ containerRef }: { containerRef: React.RefObject<HTMLEl
     return () => container.removeEventListener('mousemove', handleMouseMove);
   }, [mouseX, mouseY, containerRef]);
 
+  // Common style for GPU acceleration (fixes Safari lag)
+  const gpuAcceleration = {
+    willChange: 'transform',
+    backfaceVisibility: 'hidden' as const,
+    WebkitBackfaceVisibility: 'hidden' as const,
+    transform: 'translateZ(0)',
+    WebkitTransform: 'translateZ(0)',
+  };
+
   return (
     <>
-      {/* Primary large gradient blob */}
+      {/* Primary large gradient blob - reduced blur for Safari */}
       <motion.div
-        className="pointer-events-none absolute w-[600px] h-[600px] rounded-full"
+        className="pointer-events-none absolute w-[500px] h-[500px] rounded-full"
         style={{
           x,
           y,
           translateX: '-50%',
           translateY: '-50%',
-          background: 'radial-gradient(circle, rgba(67, 97, 238, 0.5) 0%, rgba(114, 9, 183, 0.3) 30%, transparent 60%)',
-          filter: 'blur(80px)',
+          background: 'radial-gradient(circle, rgba(67, 97, 238, 0.4) 0%, rgba(114, 9, 183, 0.2) 40%, transparent 70%)',
+          filter: 'blur(60px)',
+          ...gpuAcceleration,
         }}
       />
       {/* Secondary accent blob with delay */}
       <motion.div
-        className="pointer-events-none absolute w-[400px] h-[400px] rounded-full"
+        className="pointer-events-none absolute w-[350px] h-[350px] rounded-full"
         style={{
-          x: useSpring(mouseX, { damping: 30, stiffness: 80 }),
-          y: useSpring(mouseY, { damping: 30, stiffness: 80 }),
+          x: x2,
+          y: y2,
           translateX: '-50%',
           translateY: '-50%',
-          background: 'radial-gradient(circle, rgba(114, 9, 183, 0.6) 0%, rgba(67, 97, 238, 0.3) 40%, transparent 60%)',
-          filter: 'blur(60px)',
-        }}
-      />
-      {/* Small bright core */}
-      <motion.div
-        className="pointer-events-none absolute w-[200px] h-[200px] rounded-full"
-        style={{
-          x: useSpring(mouseX, { damping: 15, stiffness: 150 }),
-          y: useSpring(mouseY, { damping: 15, stiffness: 150 }),
-          translateX: '-50%',
-          translateY: '-50%',
-          background: 'radial-gradient(circle, rgba(67, 97, 238, 0.7) 0%, transparent 70%)',
-          filter: 'blur(30px)',
+          background: 'radial-gradient(circle, rgba(114, 9, 183, 0.5) 0%, rgba(67, 97, 238, 0.2) 50%, transparent 70%)',
+          filter: 'blur(50px)',
+          ...gpuAcceleration,
         }}
       />
     </>
@@ -101,8 +105,8 @@ function WorkflowMockup({ t }: { t: Record<string, unknown> }) {
       transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
       className="relative mx-auto w-full max-w-lg"
     >
-      {/* Main workflow card */}
-      <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl shadow-primary/10">
+      {/* Main workflow card - reduced backdrop-blur for Safari */}
+      <div className="bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-2xl shadow-primary/10">
         {/* Header */}
         <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
           <div className="flex items-center gap-3">
@@ -229,11 +233,11 @@ function WorkflowMockup({ t }: { t: Record<string, unknown> }) {
         </div>
       </motion.div>
 
-      {/* Floating sparkle */}
+      {/* Floating sparkle - removed backdrop-blur for Safari */}
       <motion.div
         animate={{ y: [-5, 5, -5] }}
         transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-        className="absolute -bottom-3 -left-3 w-10 h-10 rounded-xl bg-gradient-to-br from-primary/30 to-secondary/30 backdrop-blur-sm border border-white/10 flex items-center justify-center"
+        className="absolute -bottom-3 -left-3 w-10 h-10 rounded-xl bg-gradient-to-br from-primary/40 to-secondary/40 border border-white/10 flex items-center justify-center will-change-transform"
       >
         <Sparkles size={14} className="text-primary" />
       </motion.div>
@@ -266,9 +270,9 @@ export function Hero() {
         }}
       />
 
-      {/* Static gradient orbs */}
-      <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/10 rounded-full blur-[120px] -z-10" />
-      <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-secondary/10 rounded-full blur-[120px] -z-10" />
+      {/* Static gradient orbs - reduced blur for Safari performance */}
+      <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/10 rounded-full blur-[80px] -z-10 will-change-transform" />
+      <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-secondary/10 rounded-full blur-[80px] -z-10 will-change-transform" />
 
       <Container className="relative z-10">
         <div className="flex flex-col items-center">

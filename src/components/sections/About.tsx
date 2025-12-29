@@ -99,7 +99,7 @@ function FloatingShape({ delay = 0, className }: { delay?: number; className?: s
         ease: 'easeInOut',
       }}
       className={cn(
-        'absolute w-32 h-32 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 blur-2xl',
+        'absolute w-32 h-32 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 blur-2xl will-change-transform',
         className
       )}
     />
@@ -132,8 +132,8 @@ function ExpertiseMockup({ activeFeature, t }: { activeFeature: number; t: Recor
       transition={{ duration: 0.6, ease: 'easeOut' }}
       className="relative mx-auto w-full max-w-md"
     >
-      {/* Main card */}
-      <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl shadow-primary/10">
+      {/* Main card - reduced backdrop-blur for Safari */}
+      <div className="bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-2xl shadow-primary/10">
         {/* Header */}
         <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
           <div className="flex items-center gap-3">
@@ -245,11 +245,11 @@ function ExpertiseMockup({ activeFeature, t }: { activeFeature: number; t: Recor
         </div>
       </motion.div>
 
-      {/* Floating code badge */}
+      {/* Floating code badge - removed backdrop-blur for Safari */}
       <motion.div
         animate={{ y: [-5, 5, -5] }}
         transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-        className="absolute -bottom-3 -left-3 w-10 h-10 rounded-xl bg-gradient-to-br from-primary/30 to-secondary/30 backdrop-blur-sm border border-white/10 flex items-center justify-center"
+        className="absolute -bottom-3 -left-3 w-10 h-10 rounded-xl bg-gradient-to-br from-primary/40 to-secondary/40 border border-white/10 flex items-center justify-center will-change-transform"
       >
         <Code2 size={14} className="text-primary" />
       </motion.div>

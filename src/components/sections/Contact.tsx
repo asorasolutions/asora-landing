@@ -60,10 +60,10 @@ export function Contact() {
 
   return (
     <section id="contact" className="py-24 relative overflow-hidden">
-      {/* Background decoration */}
+      {/* Background decoration - optimized for Safari */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-primary/5 to-transparent" />
-        <div className="absolute top-1/4 right-0 w-96 h-96 bg-secondary/10 rounded-full blur-[120px]" />
+        <div className="absolute top-1/4 right-0 w-96 h-96 bg-secondary/10 rounded-full blur-[80px] will-change-transform" />
       </div>
 
       <Container>
@@ -172,8 +172,8 @@ export function Contact() {
               </p>
             </Card>
 
-            {/* Decorative elements */}
-            <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-primary/10 rounded-full blur-2xl" />
+            {/* Decorative elements - optimized for Safari */}
+            <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-primary/10 rounded-full blur-2xl will-change-transform" />
           </motion.div>
         </div>
       </Container>

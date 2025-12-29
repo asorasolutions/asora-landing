@@ -133,13 +133,13 @@ export function ServicePage({ category }: ServicePageProps) {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="pt-32 pb-20 relative overflow-hidden">
-        {/* Background decorations */}
+        {/* Background decorations - optimized for Safari */}
         <div className="absolute inset-0 -z-10">
           <div className={cn(
-            'absolute top-20 right-0 w-96 h-96 rounded-full blur-[120px] opacity-20',
+            'absolute top-20 right-0 w-96 h-96 rounded-full blur-[80px] opacity-20 will-change-transform',
             `bg-gradient-to-br ${config.gradient}`
           )} />
-          <div className="absolute bottom-0 left-0 w-72 h-72 bg-primary/10 rounded-full blur-[100px]" />
+          <div className="absolute bottom-0 left-0 w-72 h-72 bg-primary/10 rounded-full blur-[80px] will-change-transform" />
         </div>
 
         <Container>

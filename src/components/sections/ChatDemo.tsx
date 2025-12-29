@@ -330,7 +330,7 @@ export function ChatDemo() {
                 </AnimatePresence>
 
                 {isTyping && (
-                  <div className="flex gap-3">
+                  <div className="flex gap-3 will-change-transform">
                     <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
                       <Bot size={16} className="text-white" />
                     </div>
@@ -351,9 +351,9 @@ export function ChatDemo() {
               </div>
             </div>
 
-            {/* Decorative elements */}
-            <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/20 rounded-full blur-2xl" />
-            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-secondary/20 rounded-full blur-2xl" />
+            {/* Decorative elements - using will-change for Safari */}
+            <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/20 rounded-full blur-2xl will-change-transform" />
+            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-secondary/20 rounded-full blur-2xl will-change-transform" />
           </motion.div>
         </div>
       </Container>

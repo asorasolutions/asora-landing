@@ -186,10 +186,10 @@ export function ServiceExplorer() {
 
   return (
     <section id="services" className="py-24 relative">
-      {/* Background decoration */}
+      {/* Background decoration - optimized for Safari */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/2 left-0 w-72 h-72 bg-primary/5 rounded-full blur-[100px]" />
-        <div className="absolute top-1/3 right-0 w-72 h-72 bg-secondary/5 rounded-full blur-[100px]" />
+        <div className="absolute top-1/2 left-0 w-72 h-72 bg-primary/5 rounded-full blur-[100px] will-change-transform" />
+        <div className="absolute top-1/3 right-0 w-72 h-72 bg-secondary/5 rounded-full blur-[100px] will-change-transform" />
       </div>
 
       <Container>

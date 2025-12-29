@@ -91,10 +91,10 @@ export function FAQ() {
 
   return (
     <section id="faq" className="py-24 relative overflow-hidden">
-      {/* Background decoration */}
+      {/* Background decoration - optimized for Safari */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/4 left-0 w-96 h-96 bg-primary/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-[120px]" />
+        <div className="absolute top-1/4 left-0 w-96 h-96 bg-primary/5 rounded-full blur-[80px] will-change-transform" />
+        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-[80px] will-change-transform" />
       </div>
 
       <Container>
