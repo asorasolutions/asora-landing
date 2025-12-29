@@ -14,18 +14,18 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   const services = [
-    { id: 'saas', title: t.services.saas.title },
-    { id: 'consulting', title: t.services.consulting.title },
-    { id: 'marketing', title: t.services.marketing.title },
-    { id: 'infrastructure', title: t.services.infrastructure.title },
+    { href: '/services/saas', title: t.services.saas.title },
+    { href: '/services/consulting', title: t.services.consulting.title },
+    { href: '/services/marketing', title: t.services.marketing.title },
+    { href: '/services/infrastructure', title: t.services.infrastructure.title },
   ];
 
   const navLinks = [
-    { label: t.nav.services, href: '#services' },
-    { label: t.nav.solutions, href: '#solutions' },
-    { label: t.nav.about, href: '#about' },
-    { label: t.nav.faq, href: '#faq' },
-    { label: t.nav.contact, href: '#contact' },
+    { label: t.nav.services, href: '/#services' },
+    { label: t.nav.solutions, href: '/#solutions' },
+    { label: t.nav.about, href: '/#about' },
+    { label: t.nav.faq, href: '/#faq' },
+    { label: t.nav.contact, href: '/#contact' },
   ];
 
   return (
@@ -64,9 +64,9 @@ export function Footer() {
             <h4 className="text-white font-semibold mb-4">{t.footer.services}</h4>
             <ul className="space-y-3">
               {services.map((service) => (
-                <li key={service.id}>
+                <li key={service.href}>
                   <Link
-                    href={`#${service.id}`}
+                    href={service.href}
                     className="text-[var(--color-text-secondary)] hover:text-white transition-colors text-sm"
                   >
                     {service.title}

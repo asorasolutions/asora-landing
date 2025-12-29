@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bot, User, Sparkles, RotateCcw } from 'lucide-react';
 import { Container, Button, GradientText } from '@/components/ui';
@@ -134,7 +134,7 @@ export function ChatDemo() {
   }, [visibleMessages, isTyping]);
 
   // Reset and play scenario
-  const playScenario = () => {
+  const playScenario = useCallback(() => {
     // Clear existing timeouts
     timeoutRef.current.forEach(clearTimeout);
     timeoutRef.current = [];
@@ -170,12 +170,14 @@ export function ChatDemo() {
       setIsPlaying(false);
     }, cumulativeDelay + 500);
     timeoutRef.current.push(finishTimeout);
-  };
+  }, [activeScenario]);
 
   // Start demo on mount and scenario change
   useEffect(() => {
-    playScenario();
-  }, [activeScenario]);
+    // Defer to avoid synchronous setState during render
+    const timeoutId = setTimeout(playScenario, 0);
+    return () => clearTimeout(timeoutId);
+  }, [playScenario]);
 
   // Handle scenario change
   const handleScenarioChange = (scenario: ChatScenario) => {

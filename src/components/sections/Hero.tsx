@@ -246,12 +246,7 @@ function WorkflowMockup({ t }: { t: Record<string, unknown> }) {
  */
 export function Hero() {
   const { t } = useTranslation();
-  const [isLoaded, setIsLoaded] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
 
   return (
     <section
@@ -261,12 +256,13 @@ export function Hero() {
       {/* Cursor-following gradient - contained to this section */}
       <CursorGradient containerRef={sectionRef} />
 
-      {/* Dot grid pattern background */}
+      {/* Dot grid pattern background with center-to-edge fade */}
       <div
-        className="absolute inset-0 -z-10"
+        className="absolute inset-0 -z-10 dot-pattern"
         style={{
-          backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px)`,
           backgroundSize: '32px 32px',
+          maskImage: 'radial-gradient(ellipse at center, black 0%, black 30%, transparent 70%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 0%, black 30%, transparent 70%)',
         }}
       />
 
@@ -284,7 +280,7 @@ export function Hero() {
           {/* Main Headline */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-center max-w-3xl mx-auto"
           >
@@ -302,7 +298,7 @@ export function Hero() {
           {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
             className="flex flex-col sm:flex-row items-center gap-3"
           >

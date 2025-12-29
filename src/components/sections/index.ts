@@ -4,6 +4,7 @@
 
 export { Hero } from './Hero';
 export { ServiceExplorer } from './ServiceExplorer';
+export { ServicePage } from './ServicePage';
 export { ChatDemo } from './ChatDemo';
 export { About } from './About';
 export { FAQ } from './FAQ';

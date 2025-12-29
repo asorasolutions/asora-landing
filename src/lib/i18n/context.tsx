@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback } from 'react';
 import { translations, type Locale } from './translations';
 
 // Define the translation type based on the structure
@@ -14,25 +14,20 @@ interface I18nContextType {
 
 const I18nContext = createContext<I18nContextType | null>(null);
 
+function getInitialLocale(): Locale {
+  if (typeof window === 'undefined') return 'en';
+  const saved = localStorage.getItem('locale') as Locale;
+  if (saved === 'en' || saved === 'es') return saved;
+  // Detect browser language
+  const browserLang = navigator.language.toLowerCase();
+  return browserLang.startsWith('es') ? 'es' : 'en';
+}
+
 /**
  * I18n Provider - Wraps app to provide translation context
  */
 export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>('en');
-
-  // Load saved locale on mount
-  useEffect(() => {
-    const saved = localStorage.getItem('locale') as Locale;
-    if (saved && (saved === 'en' || saved === 'es')) {
-      setLocaleState(saved);
-    } else {
-      // Detect browser language
-      const browserLang = navigator.language.toLowerCase();
-      if (browserLang.startsWith('es')) {
-        setLocaleState('es');
-      }
-    }
-  }, []);
+  const [locale, setLocaleState] = useState<Locale>(getInitialLocale);
 
   const setLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale);

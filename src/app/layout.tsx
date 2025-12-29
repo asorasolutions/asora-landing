@@ -91,8 +91,37 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
+        {/* Prevent theme flash - apply theme before render */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('theme');
+                  if (theme === 'light' || theme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', theme);
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+        {/* Scroll to top on page load/refresh - clear hash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (history.scrollRestoration) {
+                history.scrollRestoration = 'manual';
+              }
+              if (window.location.hash) {
+                history.replaceState(null, '', window.location.pathname);
+              }
+              window.scrollTo(0, 0);
+            `,
+          }}
+        />
         {/* JSON-LD Structured Data for SEO */}
         <script
           type="application/ld+json"

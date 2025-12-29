@@ -3,9 +3,10 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, Sun, Moon } from 'lucide-react';
 import { Container, Button } from '@/components/ui';
 import { useTranslation } from '@/lib/i18n';
+import { useTheme } from '@/lib/theme';
 import { cn } from '@/lib/utils';
 import type { Locale } from '@/lib/i18n';
 
@@ -17,6 +18,7 @@ import type { Locale } from '@/lib/i18n';
  */
 export function Header() {
   const { locale, setLocale, t } = useTranslation();
+  const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -27,11 +29,11 @@ export function Header() {
 
   // Navigation links with translations
   const navLinks = [
-    { label: t.nav.services, href: '#services' },
-    { label: t.nav.solutions, href: '#solutions' },
-    { label: t.nav.about, href: '#about' },
-    { label: t.nav.faq, href: '#faq' },
-    { label: t.nav.contact, href: '#contact' },
+    { label: t.nav.services, href: '/#services' },
+    { label: t.nav.solutions, href: '/#solutions' },
+    { label: t.nav.about, href: '/#about' },
+    { label: t.nav.faq, href: '/#faq' },
+    { label: t.nav.contact, href: '/#contact' },
   ];
 
   // Handle scroll - hide on scroll down, show on scroll up
@@ -113,6 +115,15 @@ export function Header() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-4">
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg text-[var(--color-text-secondary)] hover:text-white hover:bg-white/5 transition-all"
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+
             {/* Language Toggle */}
             <div className="relative">
               <button
@@ -159,13 +170,22 @@ export function Header() {
               </AnimatePresence>
             </div>
 
-            <Button variant="outline" size="sm" href="#contact">
+            <Button variant="outline" size="sm" href="/#contact">
               {t.nav.getStarted}
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center gap-2">
+            {/* Mobile Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 text-[var(--color-text-secondary)] hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+
             {/* Mobile Language Toggle */}
             <button
               onClick={() => handleLanguageChange(locale === 'en' ? 'es' : 'en')}
@@ -208,7 +228,7 @@ export function Header() {
                   </Link>
                 ))}
                 <div className="pt-4 border-t border-dark-border">
-                  <Button variant="primary" size="md" href="#contact" className="w-full">
+                  <Button variant="primary" size="md" href="/#contact" className="w-full">
                     {t.nav.getStarted}
                   </Button>
                 </div>
