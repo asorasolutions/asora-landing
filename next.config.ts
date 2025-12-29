@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true
   },
+  // Add these for GitHub Pages:
+  basePath: '/asora-landing',
+  assetPrefix: '/asora-landing/',
   typescript: {
     ignoreBuildErrors: true,
   }
