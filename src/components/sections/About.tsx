@@ -317,7 +317,7 @@ export function About() {
     <section
       ref={sectionRef}
       id="about"
-      className="py-32 relative overflow-hidden"
+      className="py-24 relative overflow-hidden"
     >
       {/* Top gradient fade for smooth transition */}
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-dark to-transparent pointer-events-none z-10" />
@@ -381,7 +381,7 @@ export function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.8 }}
-          className="mt-32 relative"
+          className="mt-24 relative"
         >
           {/* Background decoration */}
           <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-secondary/5 to-primary/5 rounded-3xl" />
