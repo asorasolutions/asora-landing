@@ -174,7 +174,6 @@ export function ChatDemo() {
 
   // Start demo on mount and scenario change
   useEffect(() => {
-    playScenario();
   }, [activeScenario]);
 
   // Handle scenario change

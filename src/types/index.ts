@@ -3,25 +3,6 @@
  */
 
 // =============================================================================
-// SERVICE TYPES
-// =============================================================================
-
-export interface ServiceItem {
-  title: string;
-  description: string;
-  icon: string;
-}
-
-export interface ServiceCategory {
-  id: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  icon: string;
-  services: ServiceItem[];
-}
-
-// =============================================================================
 // CHAT DEMO TYPES
 // =============================================================================
 
@@ -37,16 +18,6 @@ export interface ChatScenario {
   title: string;
   description: string;
   messages: ChatMessage[];
-}
-
-// =============================================================================
-// NAVIGATION TYPES
-// =============================================================================
-
-export interface NavLink {
-  label: string;
-  href: string;
-  isExternal?: boolean;
 }
 
 // =============================================================================
@@ -69,15 +40,4 @@ export interface CardProps {
   className?: string;
   hover?: boolean;
   gradient?: boolean;
-}
-
-// =============================================================================
-// ANIMATION TYPES
-// =============================================================================
-
-export interface AnimationVariant {
-  initial: object;
-  animate: object;
-  exit?: object;
-  transition?: object;
 }

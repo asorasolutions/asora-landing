@@ -1,48 +1,11 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Target, Users, Zap, Award, ArrowUpRight, CheckCircle2, Star, Code2, Cpu } from 'lucide-react';
 import { Container } from '@/components/ui';
 import { useTranslation } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
-
-/**
- * Animated number counter
- */
-function AnimatedCounter({ value, suffix = '' }: { value: number; suffix?: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
-
-  useEffect(() => {
-    if (!isInView) return;
-
-    const duration = 2000;
-    const steps = 60;
-    const stepValue = value / steps;
-    let current = 0;
-
-    const timer = setInterval(() => {
-      current += stepValue;
-      if (current >= value) {
-        setCount(value);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(current));
-      }
-    }, duration / steps);
-
-    return () => clearInterval(timer);
-  }, [isInView, value]);
-
-  return (
-    <span ref={ref}>
-      {count}
-      {suffix}
-    </span>
-  );
-}
 
 /**
  * Interactive feature pill
